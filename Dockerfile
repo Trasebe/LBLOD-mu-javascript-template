@@ -1,4 +1,4 @@
-FROM node:10.15.0-alpine
+FROM node:8.15.0-alpine
 
 LABEL maintainer="madnificent@gmail.com"
 
@@ -18,9 +18,9 @@ CMD sh boot.sh
 
 ONBUILD ADD . /app/
 ONBUILD RUN if [ -f /app/on-build.sh ]; \
-     then \
-        echo "Running custom on-build.sh of child" \
-        && chmod +x /app/on-build.sh \
-        && /bin/bash /app/on-build.sh ;\
-     fi
+   then \
+   echo "Running custom on-build.sh of child" \
+   && chmod +x /app/on-build.sh \
+   && /bin/bash /app/on-build.sh ;\
+   fi
 ONBUILD RUN if [ -f "/app/package.json" ]; then npm config set unsafe-perm true && npm install /app; fi
